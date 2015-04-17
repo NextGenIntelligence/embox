@@ -170,7 +170,7 @@ annotation_value = $(call get,$(call invoke,$1,getAnnotationValuesOfOption,$2),v
 
 @build_initfs := \
 	$(build_model:%=build-initfs-rmk/%)
-
+	
 @build_include_install := \
 	$(build_model:%=build-include_install-rmk/%)
 
@@ -305,16 +305,16 @@ $(@build_include_install) : target_file = \
 		$(patsubst %,$(value build_include_install_rmk_target_pat),$$(build_include_install))
 $(@build_include_install) : include_install_files = \
 		$(call source_include_install_out,$(@source_include_install))
-
+		
 $(@build_include_install) :
 	@$(call cmd_notouch_stdout,$(@file), \
 		$(gen_banner); \
 		$(call gen_make_var,build_include_install,$(include_install)); \
 		$(call gen_make_dep,$(target_file),$$$$(include_install_prerequisites)); \
 		$(call gen_make_tsvar,$(target_file),mk_file,$(mk_file)); \
-		$(call gen_make_tsvar_list,$(target_file),include_install_files,$(include_install_files)))
+		$(call gen_make_var_list,include_install_files,$(include_install_files)))
 ###########################
-
+		
 ##################
 #
 # Per-module artifacts.
@@ -549,7 +549,7 @@ my_gen_script := $(call mybuild_resolve_or_die,mybuild.lang.Generated.script)
 			$(call source_annotation_values,$s,$(my_gen_script))))
 
 #####################
-#Include Install
+#Include Install			
 my_include_install := $(call mybuild_resolve_or_die,mybuild.lang.IncludeExport)
 my_include_install_dir := $(call mybuild_resolve_or_die,mybuild.lang.IncludeExport.path)
 my_include_install_target_name := $(call mybuild_resolve_or_die,mybuild.lang.IncludeExport.target_name)
@@ -557,7 +557,7 @@ my_include_install_target_name := $(call mybuild_resolve_or_die,mybuild.lang.Inc
 @source_include_install := \
 	$(foreach s,$(build_sources), \
 		$(patsubst %,source-include-install/%$s, \
-			$(call source_annotations,$s,$(my_include_install))))
+			$(call source_annotations,$s,$(my_include_install))))	
 #####################
 
 my_initfs := $(call mybuild_resolve_or_die,mybuild.lang.InitFS)
